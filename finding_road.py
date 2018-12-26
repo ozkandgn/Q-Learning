@@ -6,7 +6,7 @@ class RoadFind():
         self.q_table=np.zeros((len(reward_table),len(reward_table)))
         self.reward_table=reward_table
         self.goal_node=goal_node
-        self.gamma=gamma
+        self.gamma=gamma #DiscountRate
         self.l_r=learning_rate
         self.iter=iteration
         self.Move()
@@ -32,8 +32,10 @@ class RoadFind():
                 y_index=round(random.uniform(0,len(self.reward_table)-1))
         error_count=0
         x_index=round(random.uniform(0,len(self.q_table[y_index])-1))
-        while self.reward_table[y_index][x_index]<0 and error_count != 100:
+        
+        while self.reward_table[y_index][x_index] == -1 and error_count != 100:
             x_index=round(random.uniform(0,len(self.q_table[y_index])-1))
+            
         if error_count == 100:
             print("there are not edge at node")
         else:
