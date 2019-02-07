@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from draw import Draw
 
 class RoadFind():
     def __init__(self,reward_table,goal_node,gamma=0.8,learning_rate=0.7,iteration=1000):
@@ -10,20 +11,8 @@ class RoadFind():
         self.l_r=learning_rate
         self.iter=iteration
         self.Move()
-        
-    def DrawQ(self):
-        print("Q")
-        for i in self.q_table:
-            for j in i:
-                print(int(j),"\t",end=' ')
-            print("")
-            
-    def DrawR(self):
-        print("R")
-        for i in self.reward_table:
-            for j in i:
-                print(int(j),"\t",end=' ')
-            print("")
+        Draw.draw_q(self)
+        Draw.draw_r(self)
             
     def Move(self,y_index=-1):
         if y_index == -1:
@@ -45,13 +34,11 @@ class RoadFind():
 
             if self.iter>1:
                 self.iter-=1
-                #self.DrawQ()
-                #self.DrawR()
+                #Draw.draw_q(self)
+                #Draw.draw_r(self)
                 self.Move(x_index if x_index!=self.goal_node else -1)
             
                         
 reward_table=[[-1,0,0,-1,-1,-1,-1],[0,-1,0,-1,-1,-1,-1],[0,0,-1,0,0,-1,-1],[0,-1,-1,-1,-1,-1,-1],\
               [-1,-1,-1,0,-1,100,-20],[-1,-1,-1,-1,-1,-1,-1],[-1,0,-1,-1,-1,-1,-1]]
-rf=RoadFind(reward_table,5,iteration=100)
-rf.DrawQ()
-rf.DrawR()
+RoadFind(reward_table,5,iteration=100)
